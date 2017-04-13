@@ -119,7 +119,7 @@ void buffer::curVrt(bool dir){
 	//attempting to move the cursor into a line that doesn't exist results in a
 	//no-op
 	int d;
-	if(dir){d=1;}
+	if(!dir){d=1;}
 	else{d=-1;}
 	bool cont=true;
 	int pos=cursor;
@@ -135,6 +135,7 @@ void buffer::curVrt(bool dir){
 		}
 	}
 	cont=true;
+	pos+=d;
 	while(cont){
 		if(pos==0){
 			cont=false; //hit the left end of the buffer

@@ -18,6 +18,9 @@ int main(){
 		for(int c=0; c<fbuf.getLen(); c++){
 			if(c==fbuf.getCur()){
 				cout<<"_";
+				if(fbuf.getCh(c)=='\n'){
+					cout<<endl;		
+				}
 			}
 			else{
 				cout<<fbuf.getCh(c);
