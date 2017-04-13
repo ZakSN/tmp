@@ -125,19 +125,23 @@ void buffer::curVrt(bool dir){
 	int pos=cursor;
 	int count=1;
 	while(cont){
-		pos+=d;
-		if((pos<0)||(pos>=length)){
+		if(pos<0){
 			return; //no line to move into
 		}
-		count++;
-		if(buff[pos]=='\n'){
+		else if(pos>=length-1){
+			return; //no line to move into
+		}
+		else if(buff[pos]=='\n'){
 			cont=false;
 			pos+=d;
+		}
+		else {
+			pos+=d;
+			count++;
 		}
 	}
 	cont=true;
 	while(cont){
-		pos+=d;
 		if(pos==0){
 			cont=false; //hit the left end of the buffer
 		}
@@ -147,13 +151,13 @@ void buffer::curVrt(bool dir){
 		else if(buff[pos]=='\n'){
 			cont=false; //found a newline
 			pos+=(d*-1);
-			count--;
+		}
+		else{
+			pos+=d;
 		}
 	}
 	cont=true;
 	while(cont){	
-		count--;
-		pos+=(d*-1);
 		if(pos==0){
 			cont=false; //hit the left end of the buffer
 		}
@@ -165,6 +169,10 @@ void buffer::curVrt(bool dir){
 		}
 		else if(count==1){
 			cont=false; //at correct position
+		}
+		else{
+			pos+=(d*-1);
+			count--;
 		}
 	}
 	cursor=pos;
