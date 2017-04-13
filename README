@@ -1,0 +1,9 @@
+(T)ext (M)anipulation (P)rogram
+A simple text editor written in c++. Relies on the ncusres library for linux.
+Provides basic text editing functionality. Primarily intended as a learning
+project.
+
+###WARNING###
+This project should not be used in a mission critical application. It may not
+behave predictably or safely. Don't say you weren't warned. 
+ 
