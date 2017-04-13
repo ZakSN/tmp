@@ -18,7 +18,6 @@ class buffer{
 		int length; //length of buffer
 		int cursor; //cursor index
 		char* buff; //the buffer
-		bool curVrt(bool); //vertical cursor movement
 		bool curHzl(bool); //horizontal cursor movement
 };
 #endif

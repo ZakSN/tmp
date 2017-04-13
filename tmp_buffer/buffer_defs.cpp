@@ -14,11 +14,79 @@ buffer::~buffer(){
 }
 
 void buffer::curUp(){
-	curVrt(true);
+//moves cursor to the same position in the line above
+//if the line above is shorter than the cursor's position in the current line
+//the cursor is moved to the end of line above
+//trying to move off the left of the buffer is a no-op
+	int CtoE=1;
+	bool move=true;
+	while(move){
+		move=curHzl(true);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else{
+			CtoE++;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(true);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(false);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else if(CtoE==1){
+			move=false;
+		}
+		else{
+			CtoE--;
+		}
+	}
 }
 
 void buffer::curDn(){
-	curVrt(false);
+//moves cursor to the same position in the line below
+//if the line below is shorter than the cursor's position in the current line
+//the cursor is moved to the end of line below
+//trying to move off the right of the buffer is a no-op
+	int CtoE=1;
+	bool move=true;
+	while(move){
+		move=curHzl(false);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else{
+			CtoE++;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(false);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(true);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else if(CtoE==1){
+			move=false;
+		}
+		else{
+			CtoE--;
+		}
+	}
 }
 
 void buffer::curLt(){
@@ -45,7 +113,7 @@ void buffer::addCh(char toAdd){
 			tmp[c]=buff[c-1];
 		}
 	}
-	//swapt the pointer to the temporary array and the old buffer array
+	//swap the pointer to the temporary array and the old buffer array
 	char* hold;
 	hold=buff;
 	buff=tmp;
@@ -111,64 +179,4 @@ bool buffer::curHzl(bool dir){
 		return true;
 	}
 	return false;
-}
-
-bool buffer::curVrt(bool dir){
-	//dir==true moves the cursor to the same index in the line above
-	//dir==flase moves the cursor to the same index in the line below
-	//true if cursor moved, false otherwise
-	bool move=true;
-	int CtoE=1; //distance between cursor and end of line
-	int Clinel=1; //(c)urrent(line)(l)ength
-	int Nlinel=1; //(n)ew(line)(l)ength
-	while(move){
-		move=curHzl(dir);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			CtoE++;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(!dir);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			Clinel++;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(dir);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(dir);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			Nlinel++;
-		}
-	}
-	if(dir&&(Nlinel<CtoE)){return true;}
-	if(Nlinel<(Clinel-CtoE)){return true;}
-	int backtrack;
-	if(dir){backtrack=Clinel-CtoE;}
-	else{backtrack=CtoE;}
-	move=true;
-	while(move){
-		move=curHzl(!dir);
-		backtrack--;
-		if(backtrack==1){
-			move=false;
-		}
-	}
-	return true;
 }
