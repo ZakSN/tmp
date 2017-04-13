@@ -92,88 +92,83 @@ char buffer::getCh(int addr){
 	return buff[addr];
 }
 
-void buffer::curHzl(bool dir){
+bool buffer::curHzl(bool dir){
 	//dir==true moves the cursor left
 	//dir==false moves the cursor right
-	//attempting to move the cursor off the end of the buffer results in
-	//a no-op
+	//returns true if cursor moved, false otherwise
 	if((cursor==0)&&(dir==true)){
-		return;
+		return false;
 	}
 	if((cursor==length-1)&&(dir==false)){
-		return;
+		return false;
 	}
 	if(dir==true){
 		cursor--;
+		return true;
 	}
 	if(dir==false){
 		cursor++;
+		return true;
 	}
+	return false;
 }
 
-void buffer::curVrt(bool dir){
+bool buffer::curVrt(bool dir){
 	//dir==true moves the cursor to the same index in the line above
 	//dir==flase moves the cursor to the same index in the line below
-	//if the line that the cursor is moved to is shorter than the
-	//line it is moved from the cursor is placed at the end of the new line
-	//attempting to move the cursor into a line that doesn't exist results in a
-	//no-op
-	int d;
-	if(!dir){d=1;}
-	else{d=-1;}
-	bool cont=true;
-	int pos=cursor;
-	int count=1;
-	while(cont){
-		if(pos<0){
-			return; //no line to move into
-		}
-		else if(pos>=length-1){
-			return; //no line to move into
-		}
-		else if(buff[pos]=='\n'){
-			cont=false;
-			pos+=d;
-		}
-		else {
-			pos+=d;
-			count++;
-		}
-	}
-	cont=true;
-	while(cont){
-		if(pos==0){
-			cont=false; //hit the left end of the buffer
-		}
-		else if(pos==(length-1)){
-			cont=false; //hit the right end of the buffer
-		}
-		else if(buff[pos]=='\n'){
-			cont=false; //found a newline
-			pos+=(d*-1);
+	//true if cursor moved, false otherwise
+	bool move=true;
+	int CtoE=1; //distance between cursor and end of line
+	int Clinel=1; //(c)urrent(line)(l)ength
+	int Nlinel=1; //(n)ew(line)(l)ength
+	while(move){
+		move=curHzl(dir);
+		if(buff[cursor]=='\n'){
+			move=false;
 		}
 		else{
-			pos+=d;
+			CtoE++;
 		}
 	}
-	cont=true;
-	while(cont){	
-		if(pos==0){
-			cont=false; //hit the left end of the buffer
-		}
-		else if(pos==(length-1)){
-			cont=false; //hit the right end of the buffer
-		}
-		else if(buff[pos]=='\n'){
-			cont=false; //found a newline
-		}
-		else if(count==1){
-			cont=false; //at correct position
+	move=true;
+	while(move){
+		move=curHzl(!dir);
+		if(buff[cursor]=='\n'){
+			move=false;
 		}
 		else{
-			pos+=(d*-1);
-			count--;
+			Clinel++;
 		}
 	}
-	cursor=pos;
+	move=true;
+	while(move){
+		move=curHzl(dir);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(dir);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else{
+			Nlinel++;
+		}
+	}
+	if(dir&&(Nlinel<CtoE)){return true;}
+	if(Nlinel<(Clinel-CtoE)){return true;}
+	int backtrack;
+	if(dir){backtrack=Clinel-CtoE;}
+	else{backtrack=CtoE;}
+	move=true;
+	while(move){
+		move=curHzl(!dir);
+		backtrack--;
+		if(backtrack==1){
+			move=false;
+		}
+	}
+	return true;
 }
