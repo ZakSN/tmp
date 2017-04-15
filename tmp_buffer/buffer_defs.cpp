@@ -14,92 +14,11 @@ buffer::~buffer(){
 }
 
 void buffer::curUp(){
-//moves cursor to the same position in the line above
-//if the line above is shorter than the cursor's position in the current line
-//the cursor is moved to the end of line above
-//trying to move off the left of the buffer is a no-op
-	int CtoE=1;
-	bool move=true;
-	while(move){
-		move=curHzl(true);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			CtoE++;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(true);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(false);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else if(CtoE==1){
-			move=false;
-		}
-		else{
-			CtoE--;
-		}
-	}
+	curVrt(true);
 }
 
 void buffer::curDn(){
-//moves cursor to the same position in the line below
-//if the line below is shorter than the cursor's position in the current line
-//the cursor is moved to the end of line below
-//trying to move off the right of the buffer is a no-op
-	int CtoE=1;
-	int nlinel=1;
-	bool move=true;
-	while(move){
-		move=curHzl(true);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			CtoE++;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(false);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-	}
-	move=true;
-	while(move){
-		move=curHzl(false);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else{
-			nlinel++;
-		}
-	}
-	if(nlinel<=CtoE){return;}
-	move=true;
-	int backtrack=nlinel-CtoE;
-	while(move){
-		move=curHzl(true);
-		if(buff[cursor]=='\n'){
-			move=false;
-		}
-		else if(backtrack==1){
-			move=false;
-		}
-		else{
-			backtrack--;
-		}
-	}
+	curVrt(false);
 }
 
 void buffer::curLt(){
@@ -192,4 +111,52 @@ bool buffer::curHzl(bool dir){
 		return true;
 	}
 	return false;
+}
+
+bool buffer::curVrt(bool dir){
+	//moves cursor to its current index, in the line above/below
+	//moves up if dir==true, else down
+	//if line the cursor is moving into is shorter than its current
+	//index then the cursor moves to the end of the new line
+	//if the cursor is moved up at the top of the file it is moved to the 
+	//first character
+	//if the cursor is moved down at the bottom of the file it is moved
+	//to the last character
+	//returns true if the cursor was moved to a new line; false otherwise
+	int CtoS=1;
+	bool move=true;
+	while(move){
+		move=curHzl(true);
+		if((!move)&&(dir)){return false;}
+		if((!move)&&(!dir)){CtoS--;}
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else{
+			CtoS++;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(dir);
+		if((!move)&&(!dir)){return false;}
+		if((!move)&&(dir)){CtoS--;}
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+	}
+	move=true;
+	while(move){
+		move=curHzl(false);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else if(CtoS==1){
+			move=false;
+		}
+		else{
+			CtoS--;
+		}
+	}
+	return true;
 }
