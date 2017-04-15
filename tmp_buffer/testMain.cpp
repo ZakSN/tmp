@@ -2,7 +2,7 @@
 #include <fstream>
 #include "buffer.h"
 using namespace std;
-#define BYTES
+#define BYTES //if defined prints raw ascii rather than char
 int main(){
 	fstream file;
 	file.open("testFile.txt");
@@ -30,10 +30,13 @@ int main(){
 		#else
 		for(int c=0; c<fbuf.getLen(); c++){
 			if(c==fbuf.getCur()){
-				cout<<"("<<(int)fbuf.getCh(c)<<")"<<endl;
+				cout<<"("<<(int)fbuf.getCh(c)<<")"<<'\t';
 			}
-			cout<<(int)fbuf.getCh(c)<<endl;
+			else{
+				cout<<(int)fbuf.getCh(c)<<'\t';
+			}
 		}
+		cout<<endl;
 		#endif
 		cout<<endl;
 		cout<<"action?"<<endl;
