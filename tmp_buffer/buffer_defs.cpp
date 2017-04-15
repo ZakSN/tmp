@@ -57,9 +57,10 @@ void buffer::curDn(){
 //the cursor is moved to the end of line below
 //trying to move off the right of the buffer is a no-op
 	int CtoE=1;
+	int nlinel=1;
 	bool move=true;
 	while(move){
-		move=curHzl(false);
+		move=curHzl(true);
 		if(buff[cursor]=='\n'){
 			move=false;
 		}
@@ -76,15 +77,27 @@ void buffer::curDn(){
 	}
 	move=true;
 	while(move){
+		move=curHzl(false);
+		if(buff[cursor]=='\n'){
+			move=false;
+		}
+		else{
+			nlinel++;
+		}
+	}
+	if(nlinel<=CtoE){return;}
+	move=true;
+	int backtrack=nlinel-CtoE;
+	while(move){
 		move=curHzl(true);
 		if(buff[cursor]=='\n'){
 			move=false;
 		}
-		else if(CtoE==1){
+		else if(backtrack==1){
 			move=false;
 		}
 		else{
-			CtoE--;
+			backtrack--;
 		}
 	}
 }
