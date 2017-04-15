@@ -2,7 +2,7 @@
 #include <fstream>
 #include "buffer.h"
 using namespace std;
-
+#define BYTES
 int main(){
 	fstream file;
 	file.open("testFile.txt");
@@ -15,6 +15,7 @@ int main(){
 	}
 	char action='l';
 	while(action!='q'){
+		#ifndef BYTES
 		for(int c=0; c<fbuf.getLen(); c++){
 			if(c==fbuf.getCur()){
 				cout<<"_";
@@ -26,6 +27,14 @@ int main(){
 				cout<<fbuf.getCh(c);
 			}
 		}
+		#else
+		for(int c=0; c<fbuf.getLen(); c++){
+			if(c==fbuf.getCur()){
+				cout<<"("<<(int)fbuf.getCh(c)<<")"<<endl;
+			}
+			cout<<(int)fbuf.getCh(c)<<endl;
+		}
+		#endif
 		cout<<endl;
 		cout<<"action?"<<endl;
 		cin>>action;
