@@ -5,14 +5,17 @@ using namespace std;
 #define BYTES //if defined prints raw ascii rather than char
 int main(){
 	fstream file;
-	file.open("testFile.txt");
+	file.open("nullfile");
+	if(!file.is_open()){
+		cerr<<"file not found"<<endl; 
+		return -1;
+	}
 	buffer fbuf;
 	while(!file.eof()){
 		char hold=file.get();
-		if(!file.eof()){
-			fbuf.addCh(hold);
-		}
+		if(hold>0){fbuf.addCh(hold);}
 	}
+	fbuf.rmvCh();
 	char action='l';
 	while(action!='q'){
 		#ifndef BYTES

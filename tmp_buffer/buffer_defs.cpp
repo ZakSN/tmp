@@ -4,6 +4,7 @@ buffer::buffer(){
 	buff=new char[1];
 	length=1;
 	cursor=0;
+	buff[0]=-1;
 }
 
 buffer::~buffer(){
@@ -70,7 +71,7 @@ void buffer::rmvCh(){
 			tmp[c]=buff[c+1];
 		}
 	}
-	//swapt the pointer to the temporary array and the old buffer array
+	//swap the pointer to the temporary array and the old buffer array
 	char* hold;
 	hold=buff;
 	buff=tmp;
@@ -84,8 +85,10 @@ void buffer::rmvCh(){
 }
 
 char buffer::getCh(int addr){
-	//returns char at buffer address if available
-	//otherwise returns NULL
+	/*
+	*returns char at buffer address if available
+	*otherwise returns NULL
+	*/
 	if((addr<0)||(addr>=length)){
 		return '\0';
 	}
@@ -93,9 +96,11 @@ char buffer::getCh(int addr){
 }
 
 bool buffer::curHzl(bool dir){
-	//dir==true moves the cursor left
-	//dir==false moves the cursor right
-	//returns true if cursor moved, false otherwise
+	/*
+	*dir==true moves the cursor left
+	*dir==false moves the cursor right
+	*returns true if cursor moved, false otherwise
+	*/
 	if((cursor==0)&&(dir==true)){
 		return false;
 	}
@@ -114,15 +119,17 @@ bool buffer::curHzl(bool dir){
 }
 
 bool buffer::curVrt(bool dir){
-	//moves cursor to its current index, in the line above/below
-	//moves up if dir==true, else down
-	//if line the cursor is moving into is shorter than its current
-	//index then the cursor moves to the end of the new line
-	//if the cursor is moved up at the top of the file it is moved to the 
-	//first character
-	//if the cursor is moved down at the bottom of the file it is moved
-	//to the last character
-	//returns true if the cursor was moved to a new line; false otherwise
+	/*
+	*moves cursor to its current index, in the line above/below
+	*moves up if dir==true, else down
+	*if line the cursor is moving into is shorter than its current
+	*index then the cursor moves to the end of the new line
+	*if the cursor is moved up at the top of the file it is moved to the 
+	*first character
+	*if the cursor is moved down at the bottom of the file it is moved
+	*to the last character
+	*returns true if the cursor was moved to a new line; false otherwise
+	*/
 	int CtoS=1;
 	bool move=true;
 	while(move){
