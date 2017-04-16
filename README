@@ -3,6 +3,10 @@ A simple text editor written in c++. Relies on the ncusres library for linux.
 Provides basic text editing functionality. Primarily intended as a learning
 project.
 
+this repository contains a sub-directory for each of the classes that make up tmp.
+each sub-directory also includes a simple testMain that is used to test the class
+before it is integrated into the greater project. 
+
 ###WARNING###
 This project should not be used in a mission critical application. It may not
 behave predictably or safely. Don't say you weren't warned. 

@@ -5,7 +5,7 @@ using namespace std;
 #define BYTES //if defined prints raw ascii rather than char
 int main(){
 	fstream file;
-	file.open("nullfile");
+	file.open("testFile.txt");
 	if(!file.is_open()){
 		cerr<<"file not found"<<endl; 
 		return -1;
