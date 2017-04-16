@@ -1,0 +1,3 @@
+this directory contains the source code for the tmp display class. the display is 
+dependant on the ncurses library. additionally tmp_display is dependant on
+tmp_buffer.
