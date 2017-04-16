@@ -7,6 +7,15 @@ this repository contains a sub-directory for each of the classes that make up tm
 each sub-directory also includes a simple testMain that is used to test the class
 before it is integrated into the greater project. 
 
+since each sub-directory contains a test main() it can be thought of as it's own
+simple but complete test program. to facilitate this running 'make test' in any
+sub-dir will produce that class's test program. running 'make' in a given sub-dir
+will only produce that class's object files. the idea is that as the project grows
+any given test progrm might require object files from a number of other sub-dirs;
+this is achieved by running make in each of the sub-dirs and then collecting the
+.o files in the current directory. this means that the finished project will only
+have to provide a main() in a "tmp_main" sub-dir, and can otherwise behave like a
+test program.
 ###WARNING###
 This project should not be used in a mission critical application. It may not
 behave predictably or safely. Don't say you weren't warned. 
