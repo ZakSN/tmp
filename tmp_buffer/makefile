@@ -1,11 +1,12 @@
-OBJECTS = testMain.o buffer_defs.o
-CPPFLAGS = -Wall
-UNITNAME = bufferTest
+OBJECTS=testMain.o buffer_defs.o
+CPPFLAGS=-Wall
+UNITNAME=bufferTest
+
+.PHONY: all clean
 
 all: $(OBJECTS)
 	g++ $(CPPFLAGS) $(OBJECTS) -o $(UNITNAME) 
 
-.Phony: clean
 clean:
 	rm $(OBJECTS)
 	rm $(UNITNAME)
