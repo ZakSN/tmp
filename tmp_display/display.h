@@ -4,10 +4,10 @@
 class display{
 	public:
 		display(); //create a display with a pointer to a null buffer
-		display(buffer*) //create a display an initialize it with a buffer*
+		display(buffer*); //create a display an initialize it with a buffer*
 		~display(); //point away from buff
-		init(buffer*); //initialize a display with a buffer*
-		refresh(); //redraw the display
+		void init(buffer*); //initialize a display with a buffer*
+		void refresh(); //redraw the display
 	private:
 		/*
 		*since a buffer contains an entire file it is inherently massive

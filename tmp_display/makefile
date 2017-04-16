@@ -1,26 +1,23 @@
-OBJECTS=display.o display_defs.o testMain.o
-EXTOBJECTS=buffer.o buffer_defs.o
-EXTSRC=buffer.h buffer_defs.cpp
+OBJECTS=display_defs.o
+SRC=display_defs.cpp
+EXTOBJECTS=buffer_defs.o
 CPPFLAGS=-Wall
 UNITNAME=displayTest
 INCLUDEPATH=../tmp_buffer
+HERE=../tmp_display
 
-.PHONY: all clean
+.PHONY: all test clean
 
-all: $(OBJECTS) $(EXTOBJECTS)
-	g++ $(CPPFLAGS) -I$(INCLUDEPATH) $(EXTOBJECTS) $(OBJECTS) -o $(UNITNAME)
-
+all: $(OBJECTS)
+test: $(OBJECTS) $(EXTOBJECTS) testMain.o
+	g++ $(CPPFLAGS)  $(OBJECTS) $(EXTOBJECTS) testMain.o -o $(UNITNAME)
+$(OBJECTS):
+	g++ $(CPPFLAGS) -I$(INCLUDEPATH) $(SRC) -c
 $(EXTOBJECTS):
-	#jump to the external directory and make the external .o files
-	pushd $(INCLUDEPATH)
-	g++ $(CPPFLAGS) -c $(EXTSRC)
-	popd
-
+	$(MAKE) -C $(INCLUDEPATH)
+	mv $(INCLUDEPATH)/$(EXTOBJECTS) $(HERE)
+testMain.o:
+	g++ $(CPPFLAGS) -I$(INCLUDEPATH) testMain.cpp -c
 clean:
-	#clean this directory
-	rm $(OBJECTS)
+	rm *.o
 	rm $(UNITNAME)
-	#clean the external directory
-	pushd $(INCLUDEPATH)
-	rm $(EXTOBJECTS)
-	popd
