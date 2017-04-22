@@ -25,7 +25,6 @@ int main(){
 	char action='l';
 	while(action!='q'){
 		disp.refresh();
-		printw("action?");
 		action=getch();
 		switch(action){
 			case 'w':

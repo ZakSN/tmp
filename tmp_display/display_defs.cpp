@@ -24,6 +24,7 @@ display::~display(){
 
 void display::init(buffer* toDisp){
 	initscr(); //initialize ncurses screen
+	curs_set(0);
 	buff=toDisp;
 }
 
@@ -37,6 +38,9 @@ void display::refresh(){
 	for(int c=0; c<buff->getLen(); c++){
 		if(c==buff->getCur()){
 			attron(A_REVERSE);
+			if(buff->getCh(c)=='\n'){
+				addch(' ');
+			}
 			addch(buff->getCh(c));
 			attroff(A_REVERSE);
 		}

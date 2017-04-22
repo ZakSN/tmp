@@ -1,0 +1,29 @@
+1. makefile implementation needs to be improved
+	basic idea:
+		'make' should produce all of the object files for this director's
+		class
+		'make test' should produce a test program that tests this class
+	problem:
+		I think multiplt 'make test' don't update files properly...
+		I've been very carefull to always 'make clean' and then 'make test'
+		this could use some looking into...
+2. character deletetion with the current buffer/display doesn't work
+	problem:
+		deleteing a character causes display to print a random(?) char
+		under the cursor... not sure if this is a problem with buffer
+		display
+3. add a gitignore?
+	basic idea:
+		I don't want to commit  builds or swap files acidently
+		I think a .gitignore would help with this. I just need to learn
+		syntax
+4. namespaces?
+	basic idea:
+		ncurses supplies lots of loose functions some of which have name
+		collisions with functions that I'm defining. right now I'm working
+		around this by putting all of the ncurses header into its own
+		namespace
+	problem:
+		I don't really know what I'm doing and need to read about how
+		namespaces work. regardless I'm pretty sure that my current
+		solution is a hack
