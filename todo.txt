@@ -16,7 +16,7 @@
 	basic idea:
 		I don't want to commit  builds or swap files acidently
 		I think a .gitignore would help with this. I just need to learn
-		syntax. need to do this.
+		syntax. need to do this. added a gitignore... testing...
 4. namespaces?
 	basic idea:
 		ncurses supplies lots of loose functions some of which have name
