@@ -12,7 +12,7 @@
 		deleteing a character causes display to print a random(?) char
 		under the cursor... not sure if this is a problem with buffer
 		display
-3. add a gitignore?
+3. add a gitignore [DONE (works I think)]
 	basic idea:
 		I don't want to commit  builds or swap files acidently
 		I think a .gitignore would help with this. I just need to learn
