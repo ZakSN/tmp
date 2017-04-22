@@ -1,0 +1,8 @@
+#vim files:
+*.swp
+
+#object files
+*.o
+
+#test units
+*Test 
