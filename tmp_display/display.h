@@ -4,7 +4,7 @@
 class display{
 	public:
 		display(); //create a display with a pointer to a null buffer
-		display(buffer*); //create a display an initialize it with a buffer*
+		display(buffer*); //create a display and initialize it with a buffer*
 		~display(); //point away from buff
 		void init(buffer*); //initialize a display with a buffer*
 		void refresh(); //redraw the display

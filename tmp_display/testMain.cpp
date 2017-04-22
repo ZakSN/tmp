@@ -2,6 +2,7 @@
 #include <fstream>
 #include "buffer.h"
 #include "display.h"
+#include <ncurses.h>
 using namespace std;
 
 int main(){
@@ -24,9 +25,8 @@ int main(){
 	char action='l';
 	while(action!='q'){
 		disp.refresh();
-		cout<<endl;
-		cout<<"action?"<<endl;
-		cin>>action;
+		printw("action?");
+		action=getch();
 		switch(action){
 			case 'w':
 				fbuf.curUp();

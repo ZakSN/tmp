@@ -10,7 +10,7 @@ HERE=../tmp_display
 
 all: $(OBJECTS)
 test: $(OBJECTS) $(EXTOBJECTS) testMain.o
-	g++ $(CPPFLAGS)  $(OBJECTS) $(EXTOBJECTS) testMain.o -o $(UNITNAME)
+	g++ $(CPPFLAGS)  $(OBJECTS) $(EXTOBJECTS) -lncurses testMain.o -o $(UNITNAME)
 $(OBJECTS):
 	g++ $(CPPFLAGS) -I$(INCLUDEPATH) $(SRC) -c
 $(EXTOBJECTS):
