@@ -12,11 +12,10 @@
 		deleteing a character causes display to print a random(?) char
 		under the cursor... not sure if this is a problem with buffer
 		display
-3. add a gitignore [DONE (works I think)]
+3. make branches track
 	basic idea:
-		I don't want to commit  builds or swap files acidently
-		I think a .gitignore would help with this. I just need to learn
-		syntax. need to do this. added a gitignore... testing...
+		I'm aware that tracking a remote branch is something  that git can
+		do... i should probably set it up
 4. namespaces?
 	basic idea:
 		ncurses supplies lots of loose functions some of which have name
