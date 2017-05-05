@@ -16,5 +16,45 @@ lines
 
 
 
+really long line: 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345690123456789
+w31rd ch4rs: !@#$%^&*():"|{""?>
+alpha
+beta
+delta
+gamma
+epsilon
+phi
+chi
+pi
+theta
+kappa
+omega
+hello world
+multi word line of great length
+short
+lines
+
+
+
+
+w31rd ch4rs: !@#$%^&*():"|{""?>
+alpha
+beta
+delta
+gamma
+epsilon
+phi
+chi
+pi
+theta
+kappa
+omega
+hello world
+multi word line of great length
+short
+lines
+
+
+
 
 w31rd ch4rs: !@#$%^&*():"|{""?>
