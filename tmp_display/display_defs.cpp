@@ -18,7 +18,7 @@ display::display(buffer* toDisp){
 display::~display(){
 	endwin(); //exit curses mode
 	//having each display object start/stop its own window may present a
-	//problem in the futur if I implement multi-buffering...
+	//problem in the future if I implement multi-buffering...
 	buff=NULL;
 }
 
